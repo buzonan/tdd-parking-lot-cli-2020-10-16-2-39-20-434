@@ -12,7 +12,7 @@ class ParkingBoyTest {
     void should_return_parking_ticket_when_parking_given_parking_boy_park() {
         //GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(5, 0));
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
 
         //WHEN
         ParkingTicket parkingTicket = parkingBoy.park(car);
@@ -25,7 +25,7 @@ class ParkingBoyTest {
     void should_return_correct_car_when_fetch_given_correct_ticket() {
         //GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(5, 0));
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket parkingTicket = parkingBoy.park(car);
 
         //WHEN
@@ -40,7 +40,7 @@ class ParkingBoyTest {
         //GIVEN
         Car car1 = new Car();
         Car car2 = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(5, 0));
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket parkingTicket1 = parkingBoy.park(car1);
         ParkingTicket parkingTicket2 = parkingBoy.park(car2);
 
@@ -57,7 +57,7 @@ class ParkingBoyTest {
     void should_return_no_car_when_fetch_given_incorrect_ticket() {
         //GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(5, 0));
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket incorrectParkingTicket = new ParkingTicket();
 
         //WHEN
@@ -71,7 +71,7 @@ class ParkingBoyTest {
     void should_return_no_car_when_fetch_given_no_ticket() {
         //GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(5, 0));
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
 
         //WHEN
         Car fetchedCar = parkingBoy.fetch(null);
@@ -84,7 +84,7 @@ class ParkingBoyTest {
     void should_return_no_car_when_fetch_given_used_ticket() {
         //GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(5, 0));
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket parkingTicket = parkingBoy.park(car);
         parkingBoy.fetch(parkingTicket);
 
