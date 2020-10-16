@@ -1,11 +1,20 @@
 package com.oocl.cultivation;
 
-public class ParkingBoy {
-    public ParkingBoy(ParkingLot parkingLot) {
+import java.util.HashMap;
+import java.util.Map;
 
+public class ParkingBoy {
+    private final Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
+    public ParkingBoy(ParkingLot parkingLot) {
     }
 
     public ParkingTicket park(Car car) {
-        return new ParkingTicket(car);
+        ParkingTicket parkingTicket = new ParkingTicket();
+        ticketCarMap.put(parkingTicket, car);
+        return parkingTicket;
+    }
+
+    public Car fetch(ParkingTicket parkingTicket) {
+        return ticketCarMap.get(parkingTicket);
     }
 }
