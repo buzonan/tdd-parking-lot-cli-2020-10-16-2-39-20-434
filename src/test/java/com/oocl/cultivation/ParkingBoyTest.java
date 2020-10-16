@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.locks.LockSupport;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingBoyTest {
 
@@ -52,5 +51,19 @@ class ParkingBoyTest {
         //THEN
         assertSame(car1, fetchedCar1);
         assertSame(car2, fetchedCar2);
+    }
+
+    @Test
+    void should_return_no_car_when_fetch_given_incorrect_ticket() {
+        //GIVEN
+        Car car = new Car();
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+        ParkingTicket incorrectParkingTicket = new ParkingTicket();
+
+        //WHEN
+        Car fetchedCar = parkingBoy.fetch(incorrectParkingTicket);
+
+        //THEN
+        assertNull(fetchedCar);
     }
 }
