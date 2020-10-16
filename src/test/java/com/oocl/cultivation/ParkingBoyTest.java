@@ -18,6 +18,5 @@ class ParkingBoyTest {
 
         //THEN
         assertNotNull(parkingTicket);
-
     }
 }
