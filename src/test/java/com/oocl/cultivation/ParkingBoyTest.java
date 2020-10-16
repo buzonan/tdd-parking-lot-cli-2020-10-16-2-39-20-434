@@ -78,6 +78,7 @@ class ParkingBoyTest {
 
         //THEN
         assertNull(fetchedCar);
+        assertThrows(UnrecognizedParkingTicketException.class, parkingBoy.fetch(null));
     }
 
     @Test
