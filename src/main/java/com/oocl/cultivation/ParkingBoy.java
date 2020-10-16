@@ -3,15 +3,27 @@ package com.oocl.cultivation;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParkingBoy {
+public class ParkingBoy{
     private final Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
+    public int capacity;
+    public int carsParked;
+
     public ParkingBoy(ParkingLot parkingLot) {
+        this.carsParked = parkingLot.getCarsParked();
+        this.capacity = parkingLot.getCapacity();
     }
 
     public ParkingTicket park(Car car) {
-        ParkingTicket parkingTicket = new ParkingTicket();
-        ticketCarMap.put(parkingTicket, car);
-        return parkingTicket;
+        if(!isParkingLotFull()){
+            ParkingTicket parkingTicket = new ParkingTicket();
+            ticketCarMap.put(parkingTicket, car);
+            return parkingTicket;
+        }
+        return null;
+    }
+
+    private boolean isParkingLotFull() {
+        return capacity == carsParked;
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
