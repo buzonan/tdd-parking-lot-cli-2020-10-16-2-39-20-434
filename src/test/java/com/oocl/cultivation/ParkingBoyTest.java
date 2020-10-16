@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.locks.LockSupport;
@@ -74,11 +75,9 @@ class ParkingBoyTest {
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
 
         //WHEN
-        Car fetchedCar = parkingBoy.fetch(null);
-
         //THEN
-        assertNull(fetchedCar);
-        assertThrows(UnrecognizedParkingTicketException.class, parkingBoy.fetch(null));
+        assertThrows(UnrecognizedParkingTicketException.class, () ->
+                parkingBoy.fetch(null));
     }
 
     @Test
