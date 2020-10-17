@@ -18,6 +18,9 @@ public class ParkingBoy{
         if(parkingTicket == null){
             throw new UnrecognizedParkingTicketException("Please provide your parking ticket");
         }
+        if(parkingLot.fetch(parkingTicket) == null){
+            throw new UnrecognizedParkingTicketException("Unrecognized parking ticket");
+        }
         return parkingLot.fetch(parkingTicket);
     }
 }
