@@ -286,6 +286,33 @@ class ParkingBoyTest {
         assertTrue(serviceManager.getParkingBoysList().contains(superSmartParkingBoy));
     }
 
+    @Test
+    void should_return_parking_ticket_when_park_given_service_manager_assigns_parking_boy_to_park() {
+        //GIVEN
+        Car car = new Car();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot3 = new ParkingLot();
+            parkingLotList.add(parkingLot1);
+            parkingLotList.add(parkingLot2);
+            parkingLotList.add(parkingLot3);
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+        ParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
+            serviceManager.addParkingBoy(standardParkingBoy);
+            serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
+            serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+
+        //WHEN
+        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(standardParkingBoy);
+        ParkingTicket parkingTicket = assignedParkingBoy.park(car);
+
+        //THEN
+        assertEquals(car, assignedParkingBoy.fetch(parkingTicket));
+    }
+
 
 
 
