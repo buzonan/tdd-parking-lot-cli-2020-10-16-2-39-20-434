@@ -5,6 +5,7 @@ import com.oocl.cultivation.exception.OutOfPositionException;
 import com.oocl.cultivation.parkingboy.ParkingBoy;
 import com.oocl.cultivation.parkingboy.SmartParkingBoy;
 import com.oocl.cultivation.parkingboy.StandardParkingBoy;
+import com.oocl.cultivation.parkingboy.SuperSmartParkingBoy;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -216,6 +217,8 @@ class ParkingBoyTest {
         assertNotNull(parkingTicket);
         assertEquals(car, parkingLot2.fetch(parkingTicket));
     }
+
+
 
 
 }

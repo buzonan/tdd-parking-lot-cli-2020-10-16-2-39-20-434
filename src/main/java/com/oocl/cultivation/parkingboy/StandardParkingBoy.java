@@ -20,6 +20,7 @@ public class StandardParkingBoy extends ParkingBoy implements ParkingBoyTasks{
         return super.fetch(parkingTicket);
     }
 
+    @Override
     public ParkingTicket park(Car car){
         checkParkingLotFull();
         ParkingLot parkingLot = parkingLotList.stream()

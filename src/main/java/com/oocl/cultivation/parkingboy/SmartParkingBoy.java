@@ -23,7 +23,6 @@ public class SmartParkingBoy extends ParkingBoy implements ParkingBoyTasks {
         return parkingLot.park(car);
     }
 
-    @Override
     public Car fetch(ParkingTicket parkingTicket) {
         return super.fetch(parkingTicket);
     }

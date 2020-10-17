@@ -12,6 +12,8 @@ public class ParkingLot implements ParkingBoyTasks {
     private int capacity;
     private int carsParked;
     private int availableSpace;
+    private double availableSpaceRatio;
+
     public ParkingLot() {
         this.capacity = 10;
         this.carsParked = 0;
@@ -69,7 +71,12 @@ public class ParkingLot implements ParkingBoyTasks {
     }
 
     public int getAvailableSpace() {
-        availableSpace = capacity - carsParked;
+        availableSpace = this.capacity - this.carsParked;
         return availableSpace;
+    }
+
+    public double getAvailableSpaceRatio() {
+        availableSpaceRatio = (getAvailableSpace() / (double) capacity);
+        return availableSpaceRatio;
     }
 }
