@@ -349,6 +349,35 @@ class ParkingBoyTest {
         assertEquals("Please provide your parking ticket.", exception.getMessage());
     }
 
+    @Test
+    void should_return_OutOfPosition_when_parking_lot_full_given_serviceMnager_assigns_fetch_to_parkingBoy() {
+        //GIVEN
+        Car car = new Car();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        ParkingLot parkingLot1 = new ParkingLot(10,10);
+        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot3 = new ParkingLot();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+        parkingLotList.add(parkingLot3);
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+        ParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
+        serviceManager.addParkingBoy(standardParkingBoy);
+        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
+        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+
+        //WHEN
+        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(standardParkingBoy);
+
+        //THEN
+        Exception exception = assertThrows(OutOfPositionException.class, () -> assignedParkingBoy.park(car));
+        assertEquals("Not enough position.", exception.getMessage());
+    }
+
+
+
 
 
 
