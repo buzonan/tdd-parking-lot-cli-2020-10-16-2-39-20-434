@@ -175,5 +175,24 @@ class ParkingBoyTest {
         assertEquals("Please provide your parking ticket.", exception.getMessage());
     }
 
+    @Test
+    void should_return_OutOfPositionException_for_smart_parking_boy_when_park_given_all_parking_lots_full() {
+        //GIVEN
+        Car car = new Car();
+        Car car2 = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(10, 10);
+        ParkingLot parkingLot2 = new ParkingLot(10,9);
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
+        smartParkingBoy.park(car);
+
+        //WHEN
+        //THEN
+        Exception exception = assertThrows(OutOfPositionException.class, () -> smartParkingBoy.park(car2));
+        assertEquals("Not enough position.", exception.getMessage());
+    }
+
 
 }
