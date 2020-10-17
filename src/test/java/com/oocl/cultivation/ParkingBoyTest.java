@@ -127,5 +127,6 @@ class ParkingBoyTest {
 
         //THEN
         assertNotNull(parkingTicket);
+        assertEquals(1, emptyParkingLot.getCarsParked());
     }
 }
