@@ -56,7 +56,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_when_fetch_given_incorrect_ticket() {
+    void should_return_InvalidParkingTicketException_when_fetch_given_incorrect_ticket() {
         //GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
@@ -69,7 +69,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_when_fetch_given_no_ticket() {
+    void should_return_InvalidParkingTicketException_when_fetch_given_no_ticket() {
         //GIVEN
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
 
@@ -80,7 +80,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_when_fetch_given_used_ticket() {
+    void should_return_InvalidParkingTicketException_when_fetch_given_used_ticket() {
         //GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
@@ -94,7 +94,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_and_fail_park_when_park_given_full_parking_lot_capacity() {
+    void should_return_OutOfPositionException_and_fail_park_when_park_given_full_parking_lot_capacity() {
         //GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot(1, 1));
