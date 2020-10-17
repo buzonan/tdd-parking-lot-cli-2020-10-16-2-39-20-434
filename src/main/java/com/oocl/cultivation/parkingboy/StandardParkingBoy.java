@@ -17,13 +17,15 @@ public class StandardParkingBoy extends ParkingBoy implements ParkingBoyTasks{
     }
 
     public Car fetch(ParkingTicket parkingTicket){
-        validateParkingTicket(parkingTicket);
-        return parkingLot.fetch(parkingTicket);
+        return super.fetch(parkingTicket);
     }
 
     public ParkingTicket park(Car car){
         checkParkingLotFull();
-        ParkingLot parkingLot = parkingLotList.stream().filter(parkingLot1 -> !parkingLot1.isParkingLotFull()).findFirst().get();
+        ParkingLot parkingLot = parkingLotList.stream()
+                .filter(parkingLotLocation -> !parkingLotLocation.isParkingLotFull())
+                .findFirst()
+                .get();
         return parkingLot.park(car);
     }
 

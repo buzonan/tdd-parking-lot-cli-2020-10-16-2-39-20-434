@@ -30,8 +30,12 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return parkingBoyTasks.fetch(parkingTicket);
-    }
+        validateParkingTicket(parkingTicket);
+        ParkingLot parkingLot = parkingLotList.stream()
+                .filter(parkingLotLocation -> parkingLotLocation.isParkingTicketExist(parkingTicket))
+                .findFirst()
+                .get();
+        return parkingLot.fetch(parkingTicket);    }
 
     public void validateParkingTicket(ParkingTicket parkingTicket){
         validateNullParkingTicket(parkingTicket);

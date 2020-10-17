@@ -25,7 +25,6 @@ public class SmartParkingBoy extends ParkingBoy implements ParkingBoyTasks {
 
     @Override
     public Car fetch(ParkingTicket parkingTicket) {
-        validateParkingTicket(parkingTicket);
         return super.fetch(parkingTicket);
     }
 }
