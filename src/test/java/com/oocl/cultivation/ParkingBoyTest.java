@@ -123,7 +123,7 @@ class ParkingBoyTest {
         ParkingBoy parkingBoy = new StandardParkingBoy(parkingLotList);
 
         //WHEN
-        parkingBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(car);
 
         //THEN
         assertNotNull(parkingTicket);
