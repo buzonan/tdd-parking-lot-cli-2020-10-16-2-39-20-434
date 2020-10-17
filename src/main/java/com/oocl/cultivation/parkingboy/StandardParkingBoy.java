@@ -19,10 +19,8 @@ public class StandardParkingBoy extends ParkingBoy implements ParkingBoyActions{
 
     @Override
     public ParkingTicket park(Car car) {
-        if(!parkingLot.isParkingLotFull()){
-            return parkingLot.park(car);
-        }
-        throw new OutOfPositionException("Not enough position.");
+        validateParkingLotCapacity(parkingLot);
+        return parkingLot.park(car);
     }
 
 

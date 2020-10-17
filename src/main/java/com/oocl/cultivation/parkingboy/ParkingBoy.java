@@ -40,4 +40,12 @@ public class ParkingBoy {
             throw new InvalidParkingTicketException("Please provide your parking ticket.");
         }
     }
+
+    public void validateParkingLotCapacity(ParkingLot parkingLot) {
+        if(parkingLot.isParkingLotFull()){
+            throw new OutOfPositionException("Not enough position.");
+        }
+    }
+
+
 }
