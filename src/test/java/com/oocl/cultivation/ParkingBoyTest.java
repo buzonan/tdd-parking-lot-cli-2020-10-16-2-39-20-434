@@ -59,7 +59,6 @@ class ParkingBoyTest {
     @Test
     void should_return_InvalidParkingTicketException_when_fetch_given_incorrect_ticket() {
         //GIVEN
-        Car car = new Car();
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
         ParkingTicket incorrectParkingTicket = new ParkingTicket();
 
@@ -312,6 +311,44 @@ class ParkingBoyTest {
         //THEN
         assertSame(car, assignedParkingBoy.fetch(parkingTicket));
     }
+
+    @Test
+    void should_return_InvalidParkingTicketException_when_park_fetch_given_serviceMnager_assigns_wrong_parkingBoy() {
+        //GIVEN
+        Car car = new Car();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot3 = new ParkingLot();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+        parkingLotList.add(parkingLot3);
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+        ParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
+        serviceManager.addParkingBoy(standardParkingBoy);
+        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
+        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+
+        //WHEN
+        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(standardParkingBoy);
+        ParkingTicket parkingTicket = assignedParkingBoy.park(car);
+
+        //THEN
+        Exception exception = assertThrows(InvalidParkingTicketException.class,
+                () -> serviceManager
+                        .getParkingBoy(smartParkingBoy)
+                        .fetch(parkingTicket));
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+
+        exception = assertThrows(InvalidParkingTicketException.class,
+                () -> serviceManager
+                        .getParkingBoy(superSmartParkingBoy)
+                        .fetch(null));
+        assertEquals("Please provide your parking ticket.", exception.getMessage());
+    }
+
 
 
 
