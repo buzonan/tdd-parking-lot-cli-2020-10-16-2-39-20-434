@@ -25,6 +25,8 @@ public class ParkingBoy {
         this.parkingLotList = parkingLotList;
     }
 
+
+
     public ParkingTicket park(Car car) {
         return parkingBoyTasks.park(car);
     }
@@ -66,5 +68,17 @@ public class ParkingBoy {
         }
     }
 
+    protected void setParkingLotAssignment(ParkingLot parkingLot) {
+        this.parkingLotList = new ArrayList<>();
+        this.parkingLotList.add(parkingLot);
+    }
 
+    protected void setParkingLotAssignment(List<ParkingLot> parkingLotList) {
+        this.parkingLotList = new ArrayList<>();
+        this.parkingLotList = parkingLotList;
+    }
+
+    protected void addParkingLotAssignment(ParkingLot parkingLot) {
+        this.parkingLotList.add(parkingLot);
+    }
 }
