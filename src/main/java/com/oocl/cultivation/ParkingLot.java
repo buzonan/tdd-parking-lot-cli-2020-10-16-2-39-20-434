@@ -62,4 +62,8 @@ public class ParkingLot implements ParkingBoyActions {
     public Map<ParkingTicket, Car> getTicketCarMap() {
         return ticketCarMap;
     }
+
+    public int getCarsParked() {
+        return carsParked;
+    }
 }
