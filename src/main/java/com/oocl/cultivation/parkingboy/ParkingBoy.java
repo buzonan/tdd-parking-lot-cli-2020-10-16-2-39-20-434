@@ -1,35 +1,35 @@
-package com.oocl.cultivation;
+package com.oocl.cultivation.parkingboy;
 
+import com.oocl.cultivation.Car;
+import com.oocl.cultivation.ParkingLot;
+import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.InvalidParkingTicketException;
 import com.oocl.cultivation.exception.OutOfPositionException;
 
 import static java.util.Objects.isNull;
 
-public class ParkingBoy{
+public class ParkingBoy {
     ParkingLot parkingLot;
+    ParkingBoyActions parkingBoyActions;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
     }
 
     public ParkingTicket park(Car car) {
-        if(!parkingLot.isParkingLotFull()){
-            return parkingLot.park(car);
-        }
-        throw new OutOfPositionException("Not enough position.");
+        return parkingBoyActions.park(car);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        validateParkingTicket(parkingTicket);
-        return parkingLot.fetch(parkingTicket);
+        return parkingBoyActions.fetch(parkingTicket);
     }
 
-    private void validateParkingTicket(ParkingTicket parkingTicket){
+    public void validateParkingTicket(ParkingTicket parkingTicket){
         validateNullParkingTicket(parkingTicket);
         validateUsedParkingTicket(parkingTicket);
     }
 
-    private void validateUsedParkingTicket(ParkingTicket parkingTicket) {
+    public void validateUsedParkingTicket(ParkingTicket parkingTicket) {
         if(!parkingLot.isParkingTicketExist(parkingTicket)){
             throw new InvalidParkingTicketException("Unrecognized parking ticket.");
         }
