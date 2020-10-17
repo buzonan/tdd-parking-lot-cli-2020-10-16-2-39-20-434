@@ -11,12 +11,12 @@ public class ParkingBoy{
         if(!parkingLot.isParkingLotFull()){
             return parkingLot.park(car);
         }
-        return null;
+        throw new OutOfPositionException("Not enough position.");
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
         if(parkingTicket == null){
-            throw new UnrecognizedParkingTicketException("Please provide your parking ticket");
+            throw new UnrecognizedParkingTicketException("Please provide your parking ticket.");
         }
         if(parkingLot.fetch(parkingTicket) == null){
             throw new UnrecognizedParkingTicketException("Unrecognized parking ticket");
