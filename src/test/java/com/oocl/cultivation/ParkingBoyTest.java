@@ -59,13 +59,12 @@ class ParkingBoyTest {
         //GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
-
-        //WHEN
         ParkingTicket incorrectParkingTicket = new ParkingTicket();
 
+        //WHEN
         //THEN
         Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(incorrectParkingTicket));
-        assertEquals("Unrecognized parking ticket", exception.getMessage());
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
     @Test
@@ -84,14 +83,13 @@ class ParkingBoyTest {
         //GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket = parkingBoy.park(car);
-        parkingBoy.fetch(parkingTicket);
+        ParkingTicket parkingUsedTicket = parkingBoy.park(car);
+        parkingBoy.fetch(parkingUsedTicket);
 
         //WHEN
-        Car fetchedCarWithUsedTicket = parkingBoy.fetch(parkingTicket);
-
         //THEN
-        assertNull(fetchedCarWithUsedTicket);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(parkingUsedTicket));
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
     @Test
