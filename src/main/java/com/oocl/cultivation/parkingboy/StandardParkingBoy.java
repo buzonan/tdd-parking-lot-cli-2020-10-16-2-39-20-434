@@ -3,7 +3,6 @@ package com.oocl.cultivation.parkingboy;
 import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
-import com.oocl.cultivation.exception.OutOfPositionException;
 
 public class StandardParkingBoy extends ParkingBoy implements ParkingBoyActions{
 

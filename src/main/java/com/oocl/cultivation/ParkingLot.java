@@ -1,9 +1,11 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.parkingboy.ParkingBoyActions;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParkingLot {
+public class ParkingLot implements ParkingBoyActions {
     private Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
     private int capacity;
     private int carsParked;
@@ -22,12 +24,14 @@ public class ParkingLot {
         return capacity == carsParked;
     }
 
+    @Override
     public ParkingTicket park(Car car) {
         ParkingTicket parkingTicket = new ParkingTicket();
         ticketCarMap.put(parkingTicket, car);
         return parkingTicket;
     }
 
+    @Override
     public Car fetch(ParkingTicket parkingTicket) {
         Car carFromTicket = ticketCarMap.get(parkingTicket);
         ticketCarMap.remove(parkingTicket);
