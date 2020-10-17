@@ -16,10 +16,6 @@ public class StandardParkingBoy extends ParkingBoy implements ParkingBoyTasks{
         super(parkingLotList);
     }
 
-    public Car fetch(ParkingTicket parkingTicket){
-        return super.fetch(parkingTicket);
-    }
-
     @Override
     public ParkingTicket park(Car car){
         checkParkingLotFull();

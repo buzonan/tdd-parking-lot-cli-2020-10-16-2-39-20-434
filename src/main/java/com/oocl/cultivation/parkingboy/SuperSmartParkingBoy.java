@@ -10,9 +10,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SuperSmartParkingBoy extends ParkingBoy implements ParkingBoyTasks {
-    public SuperSmartParkingBoy(ParkingLot parkingLot) {
-        super(parkingLot);
-    }
 
     public SuperSmartParkingBoy(List<ParkingLot> parkingLotList) {
         super(parkingLotList);
