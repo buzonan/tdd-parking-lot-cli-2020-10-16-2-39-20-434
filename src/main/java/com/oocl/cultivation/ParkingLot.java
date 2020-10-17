@@ -1,16 +1,17 @@
 package com.oocl.cultivation;
 
 import com.oocl.cultivation.exception.OutOfPositionException;
-import com.oocl.cultivation.parkingboy.ParkingBoyActions;
+import com.oocl.cultivation.parkingboy.ParkingBoyTasks;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class ParkingLot implements ParkingBoyActions {
+public class ParkingLot implements ParkingBoyTasks {
     private Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
     private int capacity;
     private int carsParked;
-
+    private int availableSpace;
     public ParkingLot() {
         this.capacity = 10;
         this.carsParked = 0;
@@ -65,5 +66,10 @@ public class ParkingLot implements ParkingBoyActions {
 
     public int getCarsParked() {
         return carsParked;
+    }
+
+    public int getAvailableSpace() {
+        availableSpace = capacity - carsParked;
+        return availableSpace;
     }
 }

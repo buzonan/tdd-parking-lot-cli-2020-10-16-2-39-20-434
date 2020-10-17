@@ -4,6 +4,8 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.InvalidParkingTicketException;
+import com.oocl.cultivation.exception.OutOfPositionException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import static java.util.Objects.isNull;
 public class ParkingBoy {
     ParkingLot parkingLot;
     List<ParkingLot> parkingLotList = new ArrayList<>();
-    ParkingBoyActions parkingBoyActions;
+    ParkingBoyTasks parkingBoyTasks;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
@@ -24,11 +26,11 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        return parkingBoyActions.park(car);
+        return parkingBoyTasks.park(car);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return parkingBoyActions.fetch(parkingTicket);
+        return parkingBoyTasks.fetch(parkingTicket);
     }
 
     public void validateParkingTicket(ParkingTicket parkingTicket){
@@ -51,6 +53,12 @@ public class ParkingBoy {
     private void validateNullParkingTicket(ParkingTicket parkingTicket) {
         if(isNull(parkingTicket)){
             throw new InvalidParkingTicketException("Please provide your parking ticket.");
+        }
+    }
+
+    public void checkParkingLotFull(){
+        if(parkingLotList.stream().allMatch(ParkingLot::isParkingLotFull)){
+            throw new OutOfPositionException("Not enough position.");
         }
     }
 
