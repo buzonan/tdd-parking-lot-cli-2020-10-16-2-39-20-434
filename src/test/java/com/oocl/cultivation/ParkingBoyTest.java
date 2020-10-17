@@ -8,6 +8,7 @@ import com.oocl.cultivation.parkingboy.StandardParkingBoy;
 import com.oocl.cultivation.parkingboy.SuperSmartParkingBoy;
 import org.junit.jupiter.api.Test;
 
+import javax.jnlp.ServiceManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -260,6 +261,28 @@ class ParkingBoyTest {
         //THEN
         Exception exception = assertThrows(OutOfPositionException.class, () -> superSmartParkingBoy.park(car2));
         assertEquals("Not enough position.", exception.getMessage());
+    }
+
+    @Test
+    void should_add_parking_boy_to_management_list_when_add_parking_boy_given_service_manager_adds_parking_boy() {
+        //GIVEN
+        ServiceManager serviceManager = new ServiceManager();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot3 = new ParkingLot();
+        ParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
+
+        //WHEN
+        serviceManager.addParkingBoy(standardParkingBoy);
+        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
+        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+
+        //THEN
+        assertSame(standardParkingBoy, serviceManager.getParkingBoy(parkingLot1));
+        assertSame(smartParkingBoy, serviceManager.getParkingBoy(parkingLot3));
+        assertSame(superSmartParkingBoy, serviceManager.getParkingBoy(parkingLot2));
     }
 
 
