@@ -25,8 +25,6 @@ public class ParkingBoy {
         this.parkingLotList = parkingLotList;
     }
 
-
-
     public ParkingTicket park(Car car) {
         return parkingBoyTasks.park(car);
     }

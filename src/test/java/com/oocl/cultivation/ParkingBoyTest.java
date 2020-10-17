@@ -395,13 +395,5 @@ class ParkingBoyTest {
         assertTrue(parkingLot1.isParkingLotFull());
         assertEquals(0, parkingLot2.getCarsParked());
         assertSame(car, serviceManager.fetch(parkingTicket));
-
     }
-
-
-
-
-
-
-
 }
