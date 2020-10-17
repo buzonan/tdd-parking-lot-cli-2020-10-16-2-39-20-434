@@ -36,4 +36,10 @@ public class ServiceManager extends StandardParkingBoy implements ParkingBoyTask
     }
 
 
+    public ParkingBoy getParkingBoy(ParkingBoy assignedParkingBoy) {
+        return getParkingBoysList().stream()
+                .filter(parkingBoy -> parkingBoy.equals(assignedParkingBoy))
+                .findAny()
+                .get();
+    }
 }

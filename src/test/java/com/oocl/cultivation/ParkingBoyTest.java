@@ -310,7 +310,7 @@ class ParkingBoyTest {
         ParkingTicket parkingTicket = assignedParkingBoy.park(car);
 
         //THEN
-        assertEquals(car, assignedParkingBoy.fetch(parkingTicket));
+        assertSame(car, assignedParkingBoy.fetch(parkingTicket));
     }
 
 
