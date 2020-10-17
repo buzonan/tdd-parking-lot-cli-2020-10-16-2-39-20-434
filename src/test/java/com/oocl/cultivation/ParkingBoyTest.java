@@ -376,6 +376,28 @@ class ParkingBoyTest {
         assertEquals("Not enough position.", exception.getMessage());
     }
 
+    @Test
+    void should_return_parkingTicket_when_park_given_service_manager_parks() {
+        //GIVEN
+        Car car = new Car();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        ParkingLot parkingLot1 = new ParkingLot(10,9);
+        ParkingLot parkingLot2 = new ParkingLot();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+
+        //WHEN
+        ParkingTicket parkingTicket = serviceManager.park(car);
+
+        //THEN
+        assertTrue(parkingLot1.isParkingLotFull());
+        assertEquals(0, parkingLot2.getCarsParked());
+        assertSame(car, serviceManager.fetch(parkingTicket));
+
+    }
+
 
 
 
