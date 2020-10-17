@@ -151,5 +151,29 @@ class ParkingBoyTest {
         assertEquals(car, parkingLot2.fetch(parkingTicket));
     }
 
+    @Test
+    void should_return_InvalidParkingTicketException_for_smart_parking_boy_when_fetch_given_invalid_parking_ticket() {
+        //GIVEN
+        Car car = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(10, 5);
+        ParkingLot parkingLot2 = new ParkingLot();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
+
+        //WHEN
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+        smartParkingBoy.fetch(parkingTicket);
+
+        //THEN
+        Exception exception = assertThrows(InvalidParkingTicketException.class, () -> smartParkingBoy.fetch(parkingTicket));
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+
+        exception = assertThrows(InvalidParkingTicketException.class, () -> smartParkingBoy.fetch(null));
+        assertEquals("Please provide your parking ticket.", exception.getMessage());
+    }
+
 
 }
