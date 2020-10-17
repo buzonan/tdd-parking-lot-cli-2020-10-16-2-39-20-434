@@ -71,13 +71,12 @@ class ParkingBoyTest {
     @Test
     void should_return_no_car_when_fetch_given_no_ticket() {
         //GIVEN
-        Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
 
         //WHEN
         //THEN
-        assertThrows(UnrecognizedParkingTicketException.class, () ->
-                parkingBoy.fetch(null));
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(null));
+        assertEquals("Please provide your parking ticket", exception.getMessage());
     }
 
     @Test
