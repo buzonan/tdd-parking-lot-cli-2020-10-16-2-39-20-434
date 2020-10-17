@@ -93,15 +93,14 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_and_fail_park_when_park_given_parking_lot_capacity_1() {
+    void should_return_no_car_and_fail_park_when_park_given_full_parking_lot_capacity() {
         //GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(1, 1));
 
         //WHEN
-        ParkingTicket parkingTicket = parkingBoy.park(car);
-
         //THEN
-        assertNull(parkingTicket);
+        Exception exception = assertThrows(OutOfPositionException.class, () -> parkingBoy.fetch(parkingBoy.park(car)));
+        assertEquals("Not enough position.", exception.getMessage());
     }
 }
