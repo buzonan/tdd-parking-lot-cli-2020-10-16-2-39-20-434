@@ -33,4 +33,8 @@ public class ParkingLot {
         ticketCarMap.remove(parkingTicket);
         return carFromTicket;
     }
+
+    public boolean isParkingTicketExist(ParkingTicket parkingTicket){
+        return ticketCarMap.containsKey(parkingTicket);
+    }
 }

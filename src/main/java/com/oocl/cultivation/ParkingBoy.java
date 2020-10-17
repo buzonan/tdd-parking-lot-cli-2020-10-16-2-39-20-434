@@ -1,5 +1,10 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.InvalidParkingTicketException;
+import com.oocl.cultivation.exception.OutOfPositionException;
+
+import static java.util.Objects.isNull;
+
 public class ParkingBoy{
     ParkingLot parkingLot;
 
@@ -15,12 +20,24 @@ public class ParkingBoy{
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        if(parkingTicket == null){
-            throw new UnrecognizedParkingTicketException("Please provide your parking ticket.");
-        }
-        if(parkingLot.fetch(parkingTicket) == null){
-            throw new UnrecognizedParkingTicketException("Unrecognized parking ticket");
-        }
+        validateParkingTicket(parkingTicket);
         return parkingLot.fetch(parkingTicket);
+    }
+
+    private void validateParkingTicket(ParkingTicket parkingTicket){
+        validateNullParkingTicket(parkingTicket);
+        validateUsedParkingTicket(parkingTicket);
+    }
+
+    private void validateUsedParkingTicket(ParkingTicket parkingTicket) {
+        if(!parkingLot.isParkingTicketExist(parkingTicket)){
+            throw new InvalidParkingTicketException("Unrecognized parking ticket.");
+        }
+    }
+
+    private void validateNullParkingTicket(ParkingTicket parkingTicket) {
+        if(isNull(parkingTicket)){
+            throw new InvalidParkingTicketException("Please provide your parking ticket.");
+        }
     }
 }

@@ -1,9 +1,8 @@
 package com.oocl.cultivation;
 
-import org.junit.jupiter.api.Assertions;
+import com.oocl.cultivation.exception.InvalidParkingTicketException;
+import com.oocl.cultivation.exception.OutOfPositionException;
 import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.locks.LockSupport;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,7 +62,7 @@ class ParkingBoyTest {
 
         //WHEN
         //THEN
-        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(incorrectParkingTicket));
+        Exception exception = assertThrows(InvalidParkingTicketException.class, () -> parkingBoy.fetch(incorrectParkingTicket));
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
@@ -74,7 +73,7 @@ class ParkingBoyTest {
 
         //WHEN
         //THEN
-        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(null));
+        Exception exception = assertThrows(InvalidParkingTicketException.class, () -> parkingBoy.fetch(null));
         assertEquals("Please provide your parking ticket.", exception.getMessage());
     }
 
@@ -88,7 +87,7 @@ class ParkingBoyTest {
 
         //WHEN
         //THEN
-        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(parkingUsedTicket));
+        Exception exception = assertThrows(InvalidParkingTicketException.class, () -> parkingBoy.fetch(parkingUsedTicket));
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
