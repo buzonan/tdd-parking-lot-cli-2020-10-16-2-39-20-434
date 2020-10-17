@@ -218,6 +218,50 @@ class ParkingBoyTest {
         assertEquals(car, parkingLot2.fetch(parkingTicket));
     }
 
+    @Test
+    void should_return_InvalidParkingTicketException_for_SuperSmartParkingBoy_when_fetch_given_Invalid_ticket() {
+        //GIVEN
+        Car car = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(10, 5);
+        ParkingLot parkingLot2 = new ParkingLot();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLotList);
+
+        //WHEN
+        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
+        superSmartParkingBoy.fetch(parkingTicket);
+
+        //THEN
+        Exception exception = assertThrows(InvalidParkingTicketException.class,
+                () -> superSmartParkingBoy.fetch(parkingTicket));
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+
+        exception = assertThrows(InvalidParkingTicketException.class, () -> superSmartParkingBoy.fetch(null));
+        assertEquals("Please provide your parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    void should_return_OutOfPositionException_for_SuperSmartParkingBoy_when_park_given_all_parking_lots_full() {
+        //GIVEN
+        Car car = new Car();
+        Car car2 = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(10, 10);
+        ParkingLot parkingLot2 = new ParkingLot(10,9);
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLotList);
+        superSmartParkingBoy.park(car);
+
+        //WHEN
+        //THEN
+        Exception exception = assertThrows(OutOfPositionException.class, () -> superSmartParkingBoy.park(car2));
+        assertEquals("Not enough position.", exception.getMessage());
+    }
+
 
 
 
