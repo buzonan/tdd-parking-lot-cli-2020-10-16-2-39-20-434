@@ -114,11 +114,11 @@ class ParkingBoyTest {
     void should_return_parking_ticket_for_parking_lot_2_when_park_given_parking_lot_1_is_full() {
         //GIVEN
         Car car = new Car();
-        ParkingLot fullParkingLot = new ParkingLot(1, 1);
-        ParkingLot emptyParkingLot = new ParkingLot();
+        ParkingLot parkingLot1 = new ParkingLot(1, 1);
+        ParkingLot parkingLot2 = new ParkingLot();
         List<ParkingLot> parkingLotList = new ArrayList<>();
-        parkingLotList.add(fullParkingLot);
-        parkingLotList.add(emptyParkingLot);
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
 
         ParkingBoy parkingBoy = new StandardParkingBoy(parkingLotList);
 
@@ -127,6 +127,26 @@ class ParkingBoyTest {
 
         //THEN
         assertNotNull(parkingTicket);
-        assertEquals(1, emptyParkingLot.getCarsParked());
+        assertEquals(car, parkingLot2.fetch(parkingTicket));
+    }
+
+    @Test
+    void should_return_parking_ticket_for_parking_lot_2_when_park_given_parking_lot_2_has_more_space() {
+        //GIVEN
+        Car car = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(10, 5);
+        ParkingLot parkingLot2 = new ParkingLot();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
+
+        //WHEN
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+
+        //THEN
+        assertNotNull(parkingTicket);
+        assertEquals(car, parkingLot2.fetch(parkingTicket));
     }
 }
