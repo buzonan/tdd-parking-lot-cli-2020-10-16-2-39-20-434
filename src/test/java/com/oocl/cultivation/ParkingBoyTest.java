@@ -6,6 +6,9 @@ import com.oocl.cultivation.parkingboy.ParkingBoy;
 import com.oocl.cultivation.parkingboy.StandardParkingBoy;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingBoyTest {
@@ -105,5 +108,24 @@ class ParkingBoyTest {
         //THEN
         Exception exception = assertThrows(OutOfPositionException.class, () -> parkingBoy.park(car2));
         assertEquals("Not enough position.", exception.getMessage());
+    }
+
+    @Test
+    void should_return_parking_ticket_for_parking_lot_2_when_park_given_parking_lot_1_is_full() {
+        //GIVEN
+        Car car = new Car();
+        ParkingLot fullParkingLot = new ParkingLot(1, 1);
+        ParkingLot emptyParkingLot = new ParkingLot();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(fullParkingLot);
+        parkingLotList.add(emptyParkingLot);
+
+        ParkingBoy parkingBoy = new StandardParkingBoy(parkingLotList);
+
+        //WHEN
+        parkingBoy.park(car);
+
+        //THEN
+        assertNotNull(parkingTicket);
     }
 }
