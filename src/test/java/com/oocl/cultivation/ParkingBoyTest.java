@@ -2,13 +2,8 @@ package com.oocl.cultivation;
 
 import com.oocl.cultivation.exception.InvalidParkingTicketException;
 import com.oocl.cultivation.exception.OutOfPositionException;
-import com.oocl.cultivation.parkingboy.ParkingBoy;
-import com.oocl.cultivation.parkingboy.SmartParkingBoy;
-import com.oocl.cultivation.parkingboy.StandardParkingBoy;
-import com.oocl.cultivation.parkingboy.SuperSmartParkingBoy;
+import com.oocl.cultivation.parkingboy.*;
 import org.junit.jupiter.api.Test;
-
-import javax.jnlp.ServiceManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -266,10 +261,16 @@ class ParkingBoyTest {
     @Test
     void should_add_parking_boy_to_management_list_when_add_parking_boy_given_service_manager_adds_parking_boy() {
         //GIVEN
-        ServiceManager serviceManager = new ServiceManager();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
         ParkingLot parkingLot1 = new ParkingLot();
         ParkingLot parkingLot2 = new ParkingLot();
         ParkingLot parkingLot3 = new ParkingLot();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+        parkingLotList.add(parkingLot3);
+
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+
         ParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1);
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
@@ -280,9 +281,9 @@ class ParkingBoyTest {
         serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
 
         //THEN
-        assertSame(standardParkingBoy, serviceManager.getParkingBoy(parkingLot1));
-        assertSame(smartParkingBoy, serviceManager.getParkingBoy(parkingLot3));
-        assertSame(superSmartParkingBoy, serviceManager.getParkingBoy(parkingLot2));
+        assertTrue(serviceManager.getParkingBoysList().contains(standardParkingBoy));
+        assertTrue(serviceManager.getParkingBoysList().contains(smartParkingBoy));
+        assertTrue(serviceManager.getParkingBoysList().contains(superSmartParkingBoy));
     }
 
 
