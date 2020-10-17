@@ -24,13 +24,11 @@ public class ParkingLot implements ParkingBoyActions {
         this.carsParked = carsParked;
     }
 
-
-
     @Override
     public ParkingTicket park(Car car) {
         validateParkingLotCapacity();
         ParkingTicket parkingTicket = new ParkingTicket();
-        ticketCarMap.put(parkingTicket, car);
+        addCarToParkingLot(parkingTicket, car);
         return parkingTicket;
     }
 
@@ -38,7 +36,7 @@ public class ParkingLot implements ParkingBoyActions {
     public Car fetch(ParkingTicket parkingTicket) {
         validateParkingTicket(parkingTicket);
         Car carFromTicket = ticketCarMap.get(parkingTicket);
-        ticketCarMap.remove(parkingTicket);
+        removeCarFromParkingLot(parkingTicket);
         return carFromTicket;
     }
 
@@ -71,5 +69,15 @@ public class ParkingLot implements ParkingBoyActions {
 
     public boolean isParkingTicketExist(ParkingTicket parkingTicket){
         return ticketCarMap.containsKey(parkingTicket);
+    }
+
+    private void addCarToParkingLot(ParkingTicket parkingTicket, Car car) {
+        ticketCarMap.put(parkingTicket, car);
+        ++carsParked;
+    }
+
+    private void removeCarFromParkingLot(ParkingTicket parkingTicket) {
+        ticketCarMap.remove(parkingTicket);
+        --carsParked;
     }
 }
