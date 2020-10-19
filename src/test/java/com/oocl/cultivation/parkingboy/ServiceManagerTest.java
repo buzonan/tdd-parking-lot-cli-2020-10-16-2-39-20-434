@@ -1,0 +1,155 @@
+package com.oocl.cultivation.parkingboy;
+
+import com.oocl.cultivation.Car;
+import com.oocl.cultivation.ParkingLot;
+import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.exception.InvalidParkingTicketException;
+import com.oocl.cultivation.exception.OutOfPositionException;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ServiceManagerTest {
+    @Test
+    void should_add_parking_boy_to_management_list_when_add_parking_boy_given_service_manager_adds_parking_boy() {
+        //GIVEN
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot3 = new ParkingLot();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+        parkingLotList.add(parkingLot3);
+
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
+
+        //WHEN
+        serviceManager.addParkingBoy(parkingBoy);
+        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
+        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+
+        //THEN
+        assertTrue(serviceManager.getParkingBoysList().contains(parkingBoy));
+        assertTrue(serviceManager.getParkingBoysList().contains(smartParkingBoy));
+        assertTrue(serviceManager.getParkingBoysList().contains(superSmartParkingBoy));
+    }
+
+    @Test
+    void should_return_parking_ticket_when_park_given_service_manager_assigns_parking_boy_to_park() {
+        //GIVEN
+        Car car = new Car();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot3 = new ParkingLot();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+        parkingLotList.add(parkingLot3);
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
+        serviceManager.addParkingBoy(parkingBoy);
+        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
+        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+
+        //WHEN
+        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(parkingBoy);
+        ParkingTicket parkingTicket = assignedParkingBoy.park(car);
+
+        //THEN
+        assertSame(car, assignedParkingBoy.fetch(parkingTicket));
+    }
+
+    @Test
+    void should_return_InvalidParkingTicketException_when_park_fetch_given_serviceMnager_assigns_wrong_parkingBoy() {
+        //GIVEN
+        Car car = new Car();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot3 = new ParkingLot();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+        parkingLotList.add(parkingLot3);
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
+        serviceManager.addParkingBoy(parkingBoy);
+        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
+        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+
+        //WHEN
+        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(parkingBoy);
+        ParkingTicket parkingTicket = assignedParkingBoy.park(car);
+
+        //THEN
+        Exception exception = assertThrows(InvalidParkingTicketException.class,
+                () -> serviceManager
+                        .getParkingBoy(smartParkingBoy)
+                        .fetch(parkingTicket));
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+
+        exception = assertThrows(InvalidParkingTicketException.class,
+                () -> serviceManager
+                        .getParkingBoy(superSmartParkingBoy)
+                        .fetch(null));
+        assertEquals("Please provide your parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    void should_return_OutOfPosition_when_parking_lot_full_given_serviceMnager_assigns_fetch_to_parkingBoy() {
+        //GIVEN
+        Car car = new Car();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        ParkingLot parkingLot1 = new ParkingLot(10,10);
+        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot3 = new ParkingLot();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+        parkingLotList.add(parkingLot3);
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
+        serviceManager.addParkingBoy(parkingBoy);
+        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
+        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+
+        //WHEN
+        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(parkingBoy);
+
+        //THEN
+        Exception exception = assertThrows(OutOfPositionException.class, () -> assignedParkingBoy.park(car));
+        assertEquals("Not enough position.", exception.getMessage());
+    }
+
+    @Test
+    void should_return_parkingTicket_when_park_given_service_manager_parks() {
+        //GIVEN
+        Car car = new Car();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        ParkingLot parkingLot1 = new ParkingLot(10,9);
+        ParkingLot parkingLot2 = new ParkingLot();
+        parkingLotList.add(parkingLot1);
+        parkingLotList.add(parkingLot2);
+
+        ServiceManager serviceManager = new ServiceManager(parkingLotList);
+
+        //WHEN
+        ParkingTicket parkingTicket = serviceManager.park(car);
+
+        //THEN
+        assertTrue(parkingLot1.isParkingLotFull());
+        assertEquals(0, parkingLot2.getCarsParked());
+        assertSame(car, serviceManager.fetch(parkingTicket));
+    }
+}
