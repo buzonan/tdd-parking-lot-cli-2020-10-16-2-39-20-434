@@ -11,10 +11,9 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 
-public class ParkingBoy {
+public class ParkingBoy implements ParkingBoyTasks{
     ParkingLot parkingLot;
     List<ParkingLot> parkingLotList = new ArrayList<>();
-    ParkingBoyTasks parkingBoyTasks;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
@@ -26,7 +25,7 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Automobile automobile) {
-        return parkingBoyTasks.park(automobile);
+        return parkingLot.park(automobile);
     }
 
     public Automobile fetch(ParkingTicket parkingTicket) {

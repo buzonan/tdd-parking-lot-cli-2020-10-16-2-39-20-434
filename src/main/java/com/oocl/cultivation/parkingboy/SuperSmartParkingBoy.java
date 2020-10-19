@@ -3,11 +3,10 @@ package com.oocl.cultivation.parkingboy;
 import com.oocl.cultivation.Automobile;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
-
 import java.util.Comparator;
 import java.util.List;
 
-public class SuperSmartParkingBoy extends ParkingBoy implements ParkingBoyTasks {
+public class SuperSmartParkingBoy extends ParkingBoy{
 
     public SuperSmartParkingBoy(ParkingLot parkingLot) {
         super(parkingLot);

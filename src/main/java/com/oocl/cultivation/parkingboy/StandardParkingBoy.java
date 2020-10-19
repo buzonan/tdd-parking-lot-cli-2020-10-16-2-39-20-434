@@ -6,7 +6,7 @@ import com.oocl.cultivation.ParkingTicket;
 
 import java.util.List;
 
-public class StandardParkingBoy extends ParkingBoy implements ParkingBoyTasks{
+public class StandardParkingBoy extends ParkingBoy{
 
     public StandardParkingBoy(ParkingLot parkingLot) {
         super(parkingLot);
