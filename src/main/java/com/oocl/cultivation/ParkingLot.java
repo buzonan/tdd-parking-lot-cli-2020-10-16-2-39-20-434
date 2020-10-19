@@ -40,7 +40,7 @@ public class ParkingLot implements ParkingBoyTasks {
 
     public void validateParkingLotCapacity() {
         if(isParkingLotFull()){
-            throw new OutOfPositionException("Not enough position.");
+            throw new OutOfPositionException();
         }
     }
 

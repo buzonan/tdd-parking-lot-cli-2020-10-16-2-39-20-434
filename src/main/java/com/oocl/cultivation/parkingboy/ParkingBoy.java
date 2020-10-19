@@ -66,7 +66,7 @@ public class ParkingBoy implements ParkingBoyTasks{
 
     public void checkParkingLotFull(){
         if(parkingLotList.stream().allMatch(ParkingLot::isParkingLotFull)){
-            throw new OutOfPositionException("Not enough position.");
+            throw new OutOfPositionException();
         }
     }
 
