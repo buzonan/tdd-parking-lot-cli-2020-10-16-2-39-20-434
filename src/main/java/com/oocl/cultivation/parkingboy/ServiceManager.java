@@ -5,7 +5,6 @@ import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.InvalidParkingBoy;
 import com.oocl.cultivation.exception.InvalidParkingTicketException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
