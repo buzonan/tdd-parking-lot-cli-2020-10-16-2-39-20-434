@@ -101,7 +101,7 @@ class ParkingBoyTest {
         //GIVEN
         Car car = new Car();
         Car car2 = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(1, 0));
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(1));
         parkingBoy.park(car);
 
         //WHEN
@@ -114,20 +114,21 @@ class ParkingBoyTest {
     void should_return_parking_ticket_for_parking_lot_2_when_park_given_parking_lot_1_is_full() {
         //GIVEN
         Car car = new Car();
-        ParkingLot parkingLot1 = new ParkingLot(1, 1);
+        Car car2 = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(1);
         ParkingLot parkingLot2 = new ParkingLot();
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLot1);
         parkingLotList.add(parkingLot2);
-
         ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
 
         //WHEN
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        parkingBoy.park(car);
+        ParkingTicket parkingTicket2 = parkingBoy.park(car2);
 
         //THEN
-        assertNotNull(parkingTicket);
-        assertEquals(car, parkingLot2.fetch(parkingTicket));
+        assertNotNull(parkingTicket2);
+        assertEquals(car2, parkingLot2.fetch(parkingTicket2));
     }
 
 }

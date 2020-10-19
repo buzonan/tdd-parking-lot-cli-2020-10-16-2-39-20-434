@@ -18,26 +18,28 @@ class SuperSmartParkingBoyTest {
     void  should_return_ticket_from_parking_lot2_when_super_smart_parking_boy_park_given_lot2_has_more_space_ratio(){
         //GIVEN
         Car car = new Car();
-        ParkingLot parkingLot1 = new ParkingLot(10, 6);
-        ParkingLot parkingLot2 = new ParkingLot(10,5);
+        Car car2 = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(2);
+        ParkingLot parkingLot2 = new ParkingLot(3);
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLot1);
         parkingLotList.add(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLotList);
 
         //WHEN
-        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
+        superSmartParkingBoy.park(car);
+        ParkingTicket parkingTicket2 = superSmartParkingBoy.park(car2);
 
         //THEN
-        assertNotNull(parkingTicket);
-        assertEquals(car, parkingLot2.fetch(parkingTicket));
+        assertNotNull(parkingTicket2);
+        assertEquals(car2, parkingLot2.fetch(parkingTicket2));
     }
 
     @Test
     void should_return_InvalidParkingTicketException_for_SuperSmartParkingBoy_when_fetch_given_Invalid_ticket() {
         //GIVEN
         Car car = new Car();
-        ParkingLot parkingLot1 = new ParkingLot(10, 5);
+        ParkingLot parkingLot1 = new ParkingLot(2);
         ParkingLot parkingLot2 = new ParkingLot();
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLot1);
@@ -63,17 +65,23 @@ class SuperSmartParkingBoyTest {
         //GIVEN
         Car car = new Car();
         Car car2 = new Car();
-        ParkingLot parkingLot1 = new ParkingLot(10, 10);
-        ParkingLot parkingLot2 = new ParkingLot(10,9);
+        Car car3 = new Car();
+
+
+        ParkingLot parkingLot1 = new ParkingLot(2);
+
         List<ParkingLot> parkingLotList = new ArrayList<>();
+
         parkingLotList.add(parkingLot1);
-        parkingLotList.add(parkingLot2);
+
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLotList);
+
         superSmartParkingBoy.park(car);
+        superSmartParkingBoy.park(car2);
 
         //WHEN
         //THEN
-        Exception exception = assertThrows(OutOfPositionException.class, () -> superSmartParkingBoy.park(car2));
+        Exception exception = assertThrows(OutOfPositionException.class, () -> superSmartParkingBoy.park(car3));
         assertEquals("Not enough position.", exception.getMessage());
     }
 

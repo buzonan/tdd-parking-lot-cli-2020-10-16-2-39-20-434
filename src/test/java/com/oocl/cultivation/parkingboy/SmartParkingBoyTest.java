@@ -18,7 +18,7 @@ class SmartParkingBoyTest {
     void should_return_parking_ticket_for_parking_lot_2_when_park_given_parking_lot_2_has_more_space() {
         //GIVEN
         Car car = new Car();
-        ParkingLot parkingLot1 = new ParkingLot(10, 5);
+        ParkingLot parkingLot1 = new ParkingLot(2);
         ParkingLot parkingLot2 = new ParkingLot();
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLot1);
@@ -38,7 +38,7 @@ class SmartParkingBoyTest {
     void should_return_InvalidParkingTicketException_for_smart_parking_boy_when_fetch_given_invalid_parking_ticket() {
         //GIVEN
         Car car = new Car();
-        ParkingLot parkingLot1 = new ParkingLot(10, 5);
+        ParkingLot parkingLot1 = new ParkingLot(2);
         ParkingLot parkingLot2 = new ParkingLot();
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLot1);
@@ -64,11 +64,9 @@ class SmartParkingBoyTest {
         //GIVEN
         Car car = new Car();
         Car car2 = new Car();
-        ParkingLot parkingLot1 = new ParkingLot(10, 10);
-        ParkingLot parkingLot2 = new ParkingLot(10,9);
+        ParkingLot parkingLot1 = new ParkingLot(1);
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLot1);
-        parkingLotList.add(parkingLot2);
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
         smartParkingBoy.park(car);
 

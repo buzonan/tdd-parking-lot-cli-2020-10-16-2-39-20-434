@@ -101,8 +101,9 @@ class ServiceManagerTest {
     void should_return_OutOfPosition_when_parking_lot_full_given_serviceMnager_assigns_fetch_to_parkingBoy() {
         //GIVEN
         Car car = new Car();
+        Car car2 = new Car();
         List<ParkingLot> parkingLotList = new ArrayList<>();
-        ParkingLot parkingLot1 = new ParkingLot(10,10);
+        ParkingLot parkingLot1 = new ParkingLot(1);
         ParkingLot parkingLot2 = new ParkingLot();
         ParkingLot parkingLot3 = new ParkingLot();
         parkingLotList.add(parkingLot1);
@@ -117,8 +118,9 @@ class ServiceManagerTest {
         serviceManager.addParkingBoy(superSmartParkingBoy);
 
         //WHEN
+        serviceManager.park(car, parkingBoy);
         //THEN
-        Exception exception = assertThrows(OutOfPositionException.class, () -> serviceManager.park(car, parkingBoy));
+        Exception exception = assertThrows(OutOfPositionException.class, () -> serviceManager.park(car2, parkingBoy));
         assertEquals("Not enough position.", exception.getMessage());
     }
 
@@ -127,7 +129,7 @@ class ServiceManagerTest {
         //GIVEN
         Car car = new Car();
         List<ParkingLot> parkingLotList = new ArrayList<>();
-        ParkingLot parkingLot1 = new ParkingLot(10,9);
+        ParkingLot parkingLot1 = new ParkingLot(1);
         ParkingLot parkingLot2 = new ParkingLot();
         parkingLotList.add(parkingLot1);
         parkingLotList.add(parkingLot2);
