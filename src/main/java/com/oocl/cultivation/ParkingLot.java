@@ -8,20 +8,15 @@ import java.util.Map;
 
 
 public class ParkingLot implements ParkingBoyTasks {
-    private Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
-    private int capacity;
-    private int carsParked;
-    private int availableSpace;
-    private double availableSpaceRatio;
+    private final Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
+    private final int capacity;
 
     public ParkingLot() {
         this.capacity = 10;
-        this.carsParked = 0;
     }
 
-    public ParkingLot(int capacity, int carsParked) {
+    public ParkingLot(int capacity) {
         this.capacity = capacity;
-        this.carsParked = carsParked;
     }
 
     @Override
@@ -38,14 +33,8 @@ public class ParkingLot implements ParkingBoyTasks {
         return carFromTicket;
     }
 
-    public void validateParkingLotCapacity() {
-        if(isParkingLotFull()){
-            throw new OutOfPositionException();
-        }
-    }
-
     public boolean isParkingLotFull() {
-        return capacity == carsParked;
+        return capacity == ticketCarMap.size();
     }
 
     public boolean isParkingTicketExist(ParkingTicket parkingTicket){
@@ -54,29 +43,21 @@ public class ParkingLot implements ParkingBoyTasks {
 
     private void addCarToParkingLot(ParkingTicket parkingTicket, Car car) {
         ticketCarMap.put(parkingTicket, car);
-        ++carsParked;
     }
 
     private void removeCarFromParkingLot(ParkingTicket parkingTicket) {
         ticketCarMap.remove(parkingTicket);
-        --carsParked;
-    }
-
-    public Map<ParkingTicket, Car> getTicketCarMap() {
-        return ticketCarMap;
     }
 
     public int getCarsParked() {
-        return carsParked;
+        return ticketCarMap.size();
     }
 
     public int getAvailableSpace() {
-        availableSpace = this.capacity - this.carsParked;
-        return availableSpace;
+        return this.capacity - ticketCarMap.size();
     }
 
     public double getAvailableSpaceRatio() {
-        availableSpaceRatio = (getAvailableSpace() / (double) capacity);
-        return availableSpaceRatio;
+        return (getAvailableSpace() / (double) capacity);
     }
 }

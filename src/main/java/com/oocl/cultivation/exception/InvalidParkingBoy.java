@@ -1,4 +1,4 @@
-package com.oocl.cultivation.parkingboy;
+package com.oocl.cultivation.exception;
 
 public class InvalidParkingBoy extends RuntimeException {
     public InvalidParkingBoy() {

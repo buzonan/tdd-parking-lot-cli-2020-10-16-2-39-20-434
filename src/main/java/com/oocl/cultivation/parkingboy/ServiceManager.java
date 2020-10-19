@@ -3,6 +3,7 @@ package com.oocl.cultivation.parkingboy;
 import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.exception.InvalidParkingBoy;
 import com.oocl.cultivation.exception.InvalidParkingTicketException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,8 @@ public class ServiceManager{
             ParkingLot parkingLot = parkingLotList.stream()
                     .filter(parkingLot1 ->
                             parkingLot1.isParkingTicketExist(parkingTicket))
-                    .findFirst().get();
+                    .findFirst()
+                    .get();
             ParkingBoy parkingBoy = getAssignedParkingBoy(parkingLot);
             return parkingBoy.fetch(parkingTicket);
         }catch (NoSuchElementException e){
