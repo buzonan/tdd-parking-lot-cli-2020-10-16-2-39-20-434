@@ -69,18 +69,4 @@ public class ParkingBoy implements ParkingBoyTasks{
             throw new OutOfPositionException();
         }
     }
-
-    protected void setParkingLotAssignment(ParkingLot parkingLot) {
-        this.parkingLotList = new ArrayList<>();
-        this.parkingLotList.add(parkingLot);
-    }
-
-    protected void setParkingLotAssignment(List<ParkingLot> parkingLotList) {
-        this.parkingLotList = new ArrayList<>();
-        this.parkingLotList = parkingLotList;
-    }
-
-    protected void addParkingLotAssignment(ParkingLot parkingLot) {
-        this.parkingLotList.add(parkingLot);
-    }
 }
