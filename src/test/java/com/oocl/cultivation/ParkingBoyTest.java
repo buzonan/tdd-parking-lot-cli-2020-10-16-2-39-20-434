@@ -2,8 +2,9 @@ package com.oocl.cultivation;
 
 import com.oocl.cultivation.exception.InvalidParkingTicketException;
 import com.oocl.cultivation.exception.OutOfPositionException;
-import com.oocl.cultivation.parkingboy.*;
+import com.oocl.cultivation.parkingboy.ParkingBoy;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 

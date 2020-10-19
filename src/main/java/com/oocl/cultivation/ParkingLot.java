@@ -1,6 +1,5 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.exception.OutOfPositionException;
 import com.oocl.cultivation.parkingboy.ParkingBoyTasks;
 
 import java.util.HashMap;
