@@ -1,6 +1,6 @@
 package com.oocl.cultivation.parkingboy;
 
-import com.oocl.cultivation.Car;
+import com.oocl.cultivation.Automobile;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 
@@ -17,13 +17,13 @@ public class StandardParkingBoy extends ParkingBoy implements ParkingBoyTasks{
     }
 
     @Override
-    public ParkingTicket park(Car car){
+    public ParkingTicket park(Automobile automobile){
         checkParkingLotFull();
         ParkingLot parkingLot = parkingLotList.stream()
                 .filter(parkingLotLocation -> !parkingLotLocation.isParkingLotFull())
                 .findFirst()
                 .get();
-        return parkingLot.park(car);
+        return parkingLot.park(automobile);
     }
 
 

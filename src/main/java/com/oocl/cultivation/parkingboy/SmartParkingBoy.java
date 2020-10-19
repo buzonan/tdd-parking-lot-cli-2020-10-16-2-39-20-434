@@ -1,6 +1,6 @@
 package com.oocl.cultivation.parkingboy;
 
-import com.oocl.cultivation.Car;
+import com.oocl.cultivation.Automobile;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 import java.util.Comparator;
@@ -17,9 +17,9 @@ public class SmartParkingBoy extends ParkingBoy implements ParkingBoyTasks {
     }
 
     @Override
-    public ParkingTicket park(Car car) {
+    public ParkingTicket park(Automobile automobile) {
         checkParkingLotFull();
         ParkingLot parkingLot = parkingLotList.stream().max(Comparator.comparing(ParkingLot::getAvailableSpace)).get();
-        return parkingLot.park(car);
+        return parkingLot.park(automobile);
     }
 }

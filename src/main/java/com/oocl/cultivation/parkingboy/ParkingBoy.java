@@ -1,6 +1,6 @@
 package com.oocl.cultivation.parkingboy;
 
-import com.oocl.cultivation.Car;
+import com.oocl.cultivation.Automobile;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.InvalidParkingTicketException;
@@ -25,11 +25,11 @@ public class ParkingBoy {
         this.parkingLotList = parkingLotList;
     }
 
-    public ParkingTicket park(Car car) {
-        return parkingBoyTasks.park(car);
+    public ParkingTicket park(Automobile automobile) {
+        return parkingBoyTasks.park(automobile);
     }
 
-    public Car fetch(ParkingTicket parkingTicket) {
+    public Automobile fetch(ParkingTicket parkingTicket) {
         validateParkingTicket(parkingTicket);
         ParkingLot parkingLot = parkingLotList.stream()
                 .filter(parkingLotLocation -> parkingLotLocation.isParkingTicketExist(parkingTicket))

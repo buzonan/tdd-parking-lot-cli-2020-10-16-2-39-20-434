@@ -8,7 +8,7 @@ import java.util.Map;
 
 
 public class ParkingLot implements ParkingBoyTasks {
-    private Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
+    private Map<ParkingTicket, Automobile> ticketCarMap = new HashMap<>();
     private int capacity;
     private int carsParked;
     private int availableSpace;
@@ -25,17 +25,17 @@ public class ParkingLot implements ParkingBoyTasks {
     }
 
     @Override
-    public ParkingTicket park(Car car) {
+    public ParkingTicket park(Automobile automobile) {
         ParkingTicket parkingTicket = new ParkingTicket();
-        addCarToParkingLot(parkingTicket, car);
+        addCarToParkingLot(parkingTicket, automobile);
         return parkingTicket;
     }
 
     @Override
-    public Car fetch(ParkingTicket parkingTicket) {
-        Car carFromTicket = ticketCarMap.get(parkingTicket);
+    public Automobile fetch(ParkingTicket parkingTicket) {
+        Automobile automobileFromTicket = ticketCarMap.get(parkingTicket);
         removeCarFromParkingLot(parkingTicket);
-        return carFromTicket;
+        return automobileFromTicket;
     }
 
     public void validateParkingLotCapacity() {
@@ -52,8 +52,8 @@ public class ParkingLot implements ParkingBoyTasks {
         return ticketCarMap.containsKey(parkingTicket);
     }
 
-    private void addCarToParkingLot(ParkingTicket parkingTicket, Car car) {
-        ticketCarMap.put(parkingTicket, car);
+    private void addCarToParkingLot(ParkingTicket parkingTicket, Automobile automobile) {
+        ticketCarMap.put(parkingTicket, automobile);
         ++carsParked;
     }
 
@@ -62,7 +62,7 @@ public class ParkingLot implements ParkingBoyTasks {
         --carsParked;
     }
 
-    public Map<ParkingTicket, Car> getTicketCarMap() {
+    public Map<ParkingTicket, Automobile> getTicketCarMap() {
         return ticketCarMap;
     }
 

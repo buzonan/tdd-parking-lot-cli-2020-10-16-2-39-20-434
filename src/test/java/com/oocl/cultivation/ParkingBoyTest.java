@@ -14,11 +14,11 @@ class ParkingBoyTest {
     @Test
     void should_return_parking_ticket_when_parking_given_parking_boy_park() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
 
         //WHEN
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(automobile);
 
         //THEN
         assertNotNull(parkingTicket);
@@ -27,33 +27,33 @@ class ParkingBoyTest {
     @Test
     void should_return_correct_car_when_fetch_given_correct_ticket() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(automobile);
 
         //WHEN
-        Car fetchedCar = parkingBoy.fetch(parkingTicket);
+        Automobile fetchedAutomobile = parkingBoy.fetch(parkingTicket);
 
         //THEN
-        assertSame(car, fetchedCar);
+        assertSame(automobile, fetchedAutomobile);
     }
 
     @Test
     void should_return_two_cars_when_fetch_given_two_correct_ticket() {
         //GIVEN
-        Car car1 = new Car();
-        Car car2 = new Car();
+        Automobile automobile1 = new Automobile();
+        Automobile automobile2 = new Automobile();
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket1 = parkingBoy.park(car1);
-        ParkingTicket parkingTicket2 = parkingBoy.park(car2);
+        ParkingTicket parkingTicket1 = parkingBoy.park(automobile1);
+        ParkingTicket parkingTicket2 = parkingBoy.park(automobile2);
 
         //WHEN
-        Car fetchedCar1 = parkingBoy.fetch(parkingTicket1);
-        Car fetchedCar2 = parkingBoy.fetch(parkingTicket2);
+        Automobile fetchedAutomobile1 = parkingBoy.fetch(parkingTicket1);
+        Automobile fetchedAutomobile2 = parkingBoy.fetch(parkingTicket2);
 
         //THEN
-        assertSame(car1, fetchedCar1);
-        assertSame(car2, fetchedCar2);
+        assertSame(automobile1, fetchedAutomobile1);
+        assertSame(automobile2, fetchedAutomobile2);
     }
 
     @Test
@@ -84,9 +84,9 @@ class ParkingBoyTest {
     @Test
     void should_return_InvalidParkingTicketException_when_fetch_given_used_ticket() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
-        ParkingTicket parkingUsedTicket = parkingBoy.park(car);
+        ParkingTicket parkingUsedTicket = parkingBoy.park(automobile);
         parkingBoy.fetch(parkingUsedTicket);
 
         //WHEN
@@ -99,21 +99,21 @@ class ParkingBoyTest {
     @Test
     void should_return_OutOfPositionException_and_fail_park_when_park_given_full_parking_lot_capacity() {
         //GIVEN
-        Car car = new Car();
-        Car car2 = new Car();
+        Automobile automobile = new Automobile();
+        Automobile automobile2 = new Automobile();
         ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot(1, 0));
-        parkingBoy.park(car);
+        parkingBoy.park(automobile);
 
         //WHEN
         //THEN
-        Exception exception = assertThrows(OutOfPositionException.class, () -> parkingBoy.park(car2));
+        Exception exception = assertThrows(OutOfPositionException.class, () -> parkingBoy.park(automobile2));
         assertEquals("Not enough position.", exception.getMessage());
     }
 
     @Test
     void should_return_parking_ticket_for_parking_lot_2_when_park_given_parking_lot_1_is_full() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         ParkingLot parkingLot1 = new ParkingLot(1, 1);
         ParkingLot parkingLot2 = new ParkingLot();
         List<ParkingLot> parkingLotList = new ArrayList<>();
@@ -123,17 +123,17 @@ class ParkingBoyTest {
         ParkingBoy parkingBoy = new StandardParkingBoy(parkingLotList);
 
         //WHEN
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(automobile);
 
         //THEN
         assertNotNull(parkingTicket);
-        assertEquals(car, parkingLot2.fetch(parkingTicket));
+        assertEquals(automobile, parkingLot2.fetch(parkingTicket));
     }
 
     @Test
     void should_return_parking_ticket_for_parking_lot_2_when_park_given_parking_lot_2_has_more_space() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         ParkingLot parkingLot1 = new ParkingLot(10, 5);
         ParkingLot parkingLot2 = new ParkingLot();
         List<ParkingLot> parkingLotList = new ArrayList<>();
@@ -143,17 +143,17 @@ class ParkingBoyTest {
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
 
         //WHEN
-        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+        ParkingTicket parkingTicket = smartParkingBoy.park(automobile);
 
         //THEN
         assertNotNull(parkingTicket);
-        assertEquals(car, parkingLot2.fetch(parkingTicket));
+        assertEquals(automobile, parkingLot2.fetch(parkingTicket));
     }
 
     @Test
     void should_return_InvalidParkingTicketException_for_smart_parking_boy_when_fetch_given_invalid_parking_ticket() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         ParkingLot parkingLot1 = new ParkingLot(10, 5);
         ParkingLot parkingLot2 = new ParkingLot();
         List<ParkingLot> parkingLotList = new ArrayList<>();
@@ -163,7 +163,7 @@ class ParkingBoyTest {
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
 
         //WHEN
-        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+        ParkingTicket parkingTicket = smartParkingBoy.park(automobile);
         smartParkingBoy.fetch(parkingTicket);
 
         //THEN
@@ -178,26 +178,26 @@ class ParkingBoyTest {
     @Test
     void should_return_OutOfPositionException_for_smart_parking_boy_when_park_given_all_parking_lots_full() {
         //GIVEN
-        Car car = new Car();
-        Car car2 = new Car();
+        Automobile automobile = new Automobile();
+        Automobile automobile2 = new Automobile();
         ParkingLot parkingLot1 = new ParkingLot(10, 10);
         ParkingLot parkingLot2 = new ParkingLot(10,9);
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLot1);
         parkingLotList.add(parkingLot2);
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
-        smartParkingBoy.park(car);
+        smartParkingBoy.park(automobile);
 
         //WHEN
         //THEN
-        Exception exception = assertThrows(OutOfPositionException.class, () -> smartParkingBoy.park(car2));
+        Exception exception = assertThrows(OutOfPositionException.class, () -> smartParkingBoy.park(automobile2));
         assertEquals("Not enough position.", exception.getMessage());
     }
 
     @Test
     void  should_return_ticket_from_parking_lot2_when_super_smart_parking_boy_park_given_lot2_has_more_space_ratio(){
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         ParkingLot parkingLot1 = new ParkingLot(10, 6);
         ParkingLot parkingLot2 = new ParkingLot(10,5);
         List<ParkingLot> parkingLotList = new ArrayList<>();
@@ -206,17 +206,17 @@ class ParkingBoyTest {
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLotList);
 
         //WHEN
-        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
+        ParkingTicket parkingTicket = superSmartParkingBoy.park(automobile);
 
         //THEN
         assertNotNull(parkingTicket);
-        assertEquals(car, parkingLot2.fetch(parkingTicket));
+        assertEquals(automobile, parkingLot2.fetch(parkingTicket));
     }
 
     @Test
     void should_return_InvalidParkingTicketException_for_SuperSmartParkingBoy_when_fetch_given_Invalid_ticket() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         ParkingLot parkingLot1 = new ParkingLot(10, 5);
         ParkingLot parkingLot2 = new ParkingLot();
         List<ParkingLot> parkingLotList = new ArrayList<>();
@@ -226,7 +226,7 @@ class ParkingBoyTest {
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLotList);
 
         //WHEN
-        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
+        ParkingTicket parkingTicket = superSmartParkingBoy.park(automobile);
         superSmartParkingBoy.fetch(parkingTicket);
 
         //THEN
@@ -241,19 +241,19 @@ class ParkingBoyTest {
     @Test
     void should_return_OutOfPositionException_for_SuperSmartParkingBoy_when_park_given_all_parking_lots_full() {
         //GIVEN
-        Car car = new Car();
-        Car car2 = new Car();
+        Automobile automobile = new Automobile();
+        Automobile automobile2 = new Automobile();
         ParkingLot parkingLot1 = new ParkingLot(10, 10);
         ParkingLot parkingLot2 = new ParkingLot(10,9);
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLot1);
         parkingLotList.add(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLotList);
-        superSmartParkingBoy.park(car);
+        superSmartParkingBoy.park(automobile);
 
         //WHEN
         //THEN
-        Exception exception = assertThrows(OutOfPositionException.class, () -> superSmartParkingBoy.park(car2));
+        Exception exception = assertThrows(OutOfPositionException.class, () -> superSmartParkingBoy.park(automobile2));
         assertEquals("Not enough position.", exception.getMessage());
     }
 
@@ -288,7 +288,7 @@ class ParkingBoyTest {
     @Test
     void should_return_parking_ticket_when_park_given_service_manager_assigns_parking_boy_to_park() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         List<ParkingLot> parkingLotList = new ArrayList<>();
         ParkingLot parkingLot1 = new ParkingLot();
         ParkingLot parkingLot2 = new ParkingLot();
@@ -306,16 +306,16 @@ class ParkingBoyTest {
 
         //WHEN
         ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(standardParkingBoy);
-        ParkingTicket parkingTicket = assignedParkingBoy.park(car);
+        ParkingTicket parkingTicket = assignedParkingBoy.park(automobile);
 
         //THEN
-        assertSame(car, assignedParkingBoy.fetch(parkingTicket));
+        assertSame(automobile, assignedParkingBoy.fetch(parkingTicket));
     }
 
     @Test
     void should_return_InvalidParkingTicketException_when_park_fetch_given_serviceMnager_assigns_wrong_parkingBoy() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         List<ParkingLot> parkingLotList = new ArrayList<>();
         ParkingLot parkingLot1 = new ParkingLot();
         ParkingLot parkingLot2 = new ParkingLot();
@@ -333,7 +333,7 @@ class ParkingBoyTest {
 
         //WHEN
         ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(standardParkingBoy);
-        ParkingTicket parkingTicket = assignedParkingBoy.park(car);
+        ParkingTicket parkingTicket = assignedParkingBoy.park(automobile);
 
         //THEN
         Exception exception = assertThrows(InvalidParkingTicketException.class,
@@ -352,7 +352,7 @@ class ParkingBoyTest {
     @Test
     void should_return_OutOfPosition_when_parking_lot_full_given_serviceMnager_assigns_fetch_to_parkingBoy() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         List<ParkingLot> parkingLotList = new ArrayList<>();
         ParkingLot parkingLot1 = new ParkingLot(10,10);
         ParkingLot parkingLot2 = new ParkingLot();
@@ -372,14 +372,14 @@ class ParkingBoyTest {
         ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(standardParkingBoy);
 
         //THEN
-        Exception exception = assertThrows(OutOfPositionException.class, () -> assignedParkingBoy.park(car));
+        Exception exception = assertThrows(OutOfPositionException.class, () -> assignedParkingBoy.park(automobile));
         assertEquals("Not enough position.", exception.getMessage());
     }
 
     @Test
     void should_return_parkingTicket_when_park_given_service_manager_parks() {
         //GIVEN
-        Car car = new Car();
+        Automobile automobile = new Automobile();
         List<ParkingLot> parkingLotList = new ArrayList<>();
         ParkingLot parkingLot1 = new ParkingLot(10,9);
         ParkingLot parkingLot2 = new ParkingLot();
@@ -389,11 +389,11 @@ class ParkingBoyTest {
         ServiceManager serviceManager = new ServiceManager(parkingLotList);
 
         //WHEN
-        ParkingTicket parkingTicket = serviceManager.park(car);
+        ParkingTicket parkingTicket = serviceManager.park(automobile);
 
         //THEN
         assertTrue(parkingLot1.isParkingLotFull());
         assertEquals(0, parkingLot2.getCarsParked());
-        assertSame(car, serviceManager.fetch(parkingTicket));
+        assertSame(automobile, serviceManager.fetch(parkingTicket));
     }
 }
