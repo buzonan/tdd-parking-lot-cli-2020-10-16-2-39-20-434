@@ -15,7 +15,7 @@ class ParkingBoyTest {
     void should_return_parking_ticket_when_parking_given_parking_boy_park() {
         //GIVEN
         Automobile automobile = new Automobile();
-        ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
 
         //WHEN
         ParkingTicket parkingTicket = parkingBoy.park(automobile);
@@ -28,7 +28,7 @@ class ParkingBoyTest {
     void should_return_correct_car_when_fetch_given_correct_ticket() {
         //GIVEN
         Automobile automobile = new Automobile();
-        ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket parkingTicket = parkingBoy.park(automobile);
 
         //WHEN
@@ -43,7 +43,7 @@ class ParkingBoyTest {
         //GIVEN
         Automobile automobile1 = new Automobile();
         Automobile automobile2 = new Automobile();
-        ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket parkingTicket1 = parkingBoy.park(automobile1);
         ParkingTicket parkingTicket2 = parkingBoy.park(automobile2);
 
@@ -59,7 +59,7 @@ class ParkingBoyTest {
     @Test
     void should_return_InvalidParkingTicketException_when_fetch_given_incorrect_ticket() {
         //GIVEN
-        ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket incorrectParkingTicket = new ParkingTicket();
 
         //WHEN
@@ -72,7 +72,7 @@ class ParkingBoyTest {
     @Test
     void should_return_InvalidParkingTicketException_when_fetch_given_no_ticket() {
         //GIVEN
-        ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
 
         //WHEN
         //THEN
@@ -85,7 +85,7 @@ class ParkingBoyTest {
     void should_return_InvalidParkingTicketException_when_fetch_given_used_ticket() {
         //GIVEN
         Automobile automobile = new Automobile();
-        ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket parkingUsedTicket = parkingBoy.park(automobile);
         parkingBoy.fetch(parkingUsedTicket);
 
@@ -101,7 +101,7 @@ class ParkingBoyTest {
         //GIVEN
         Automobile automobile = new Automobile();
         Automobile automobile2 = new Automobile();
-        ParkingBoy parkingBoy = new StandardParkingBoy(new ParkingLot(1, 0));
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(1, 0));
         parkingBoy.park(automobile);
 
         //WHEN
@@ -120,7 +120,7 @@ class ParkingBoyTest {
         parkingLotList.add(parkingLot1);
         parkingLotList.add(parkingLot2);
 
-        ParkingBoy parkingBoy = new StandardParkingBoy(parkingLotList);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
 
         //WHEN
         ParkingTicket parkingTicket = parkingBoy.park(automobile);
@@ -270,17 +270,17 @@ class ParkingBoyTest {
 
         ServiceManager serviceManager = new ServiceManager(parkingLotList);
 
-        ParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
 
         //WHEN
-        serviceManager.addParkingBoy(standardParkingBoy);
+        serviceManager.addParkingBoy(parkingBoy);
         serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
         serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
 
         //THEN
-        assertTrue(serviceManager.getParkingBoysList().contains(standardParkingBoy));
+        assertTrue(serviceManager.getParkingBoysList().contains(parkingBoy));
         assertTrue(serviceManager.getParkingBoysList().contains(smartParkingBoy));
         assertTrue(serviceManager.getParkingBoysList().contains(superSmartParkingBoy));
     }
@@ -297,15 +297,15 @@ class ParkingBoyTest {
             parkingLotList.add(parkingLot2);
             parkingLotList.add(parkingLot3);
         ServiceManager serviceManager = new ServiceManager(parkingLotList);
-        ParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
-            serviceManager.addParkingBoy(standardParkingBoy);
+            serviceManager.addParkingBoy(parkingBoy);
             serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
             serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
 
         //WHEN
-        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(standardParkingBoy);
+        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(parkingBoy);
         ParkingTicket parkingTicket = assignedParkingBoy.park(automobile);
 
         //THEN
@@ -324,15 +324,15 @@ class ParkingBoyTest {
         parkingLotList.add(parkingLot2);
         parkingLotList.add(parkingLot3);
         ServiceManager serviceManager = new ServiceManager(parkingLotList);
-        ParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
-        serviceManager.addParkingBoy(standardParkingBoy);
+        serviceManager.addParkingBoy(parkingBoy);
         serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
         serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
 
         //WHEN
-        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(standardParkingBoy);
+        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(parkingBoy);
         ParkingTicket parkingTicket = assignedParkingBoy.park(automobile);
 
         //THEN
@@ -361,15 +361,15 @@ class ParkingBoyTest {
         parkingLotList.add(parkingLot2);
         parkingLotList.add(parkingLot3);
         ServiceManager serviceManager = new ServiceManager(parkingLotList);
-        ParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
-        serviceManager.addParkingBoy(standardParkingBoy);
+        serviceManager.addParkingBoy(parkingBoy);
         serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
         serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
 
         //WHEN
-        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(standardParkingBoy);
+        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(parkingBoy);
 
         //THEN
         Exception exception = assertThrows(OutOfPositionException.class, () -> assignedParkingBoy.park(automobile));

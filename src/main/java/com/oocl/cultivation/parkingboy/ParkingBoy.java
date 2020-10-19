@@ -25,6 +25,11 @@ public class ParkingBoy implements ParkingBoyTasks{
     }
 
     public ParkingTicket park(Automobile automobile) {
+        checkParkingLotFull();
+        ParkingLot parkingLot = parkingLotList.stream()
+                .filter(parkingLotLocation -> !parkingLotLocation.isParkingLotFull())
+                .findFirst()
+                .get();
         return parkingLot.park(automobile);
     }
 

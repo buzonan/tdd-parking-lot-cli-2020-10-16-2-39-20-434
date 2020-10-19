@@ -4,9 +4,8 @@ import com.oocl.cultivation.ParkingLot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceManager extends StandardParkingBoy implements ParkingBoyTasks {
+public class ServiceManager extends ParkingBoy{
     List<ParkingBoy> parkingBoysList = new ArrayList<>();
-
 
     public ServiceManager(ParkingLot parkingLot) {
         super(parkingLot);
