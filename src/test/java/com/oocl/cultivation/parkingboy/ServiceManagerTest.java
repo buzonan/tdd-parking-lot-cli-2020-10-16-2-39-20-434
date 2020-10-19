@@ -32,8 +32,8 @@ class ServiceManagerTest {
 
         //WHEN
         serviceManager.addParkingBoy(parkingBoy);
-        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
-        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+        serviceManager.addParkingBoy(smartParkingBoy);
+        serviceManager.addParkingBoy(superSmartParkingBoy);
 
         //THEN
         assertTrue(serviceManager.getParkingBoysList().contains(parkingBoy));
@@ -57,15 +57,14 @@ class ServiceManagerTest {
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
         serviceManager.addParkingBoy(parkingBoy);
-        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
-        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+        serviceManager.addParkingBoy(smartParkingBoy);
+        serviceManager.addParkingBoy(superSmartParkingBoy);
 
         //WHEN
-        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(parkingBoy);
-        ParkingTicket parkingTicket = assignedParkingBoy.park(car);
+        ParkingTicket parkingTicket = serviceManager.park(car, smartParkingBoy);
 
         //THEN
-        assertSame(car, assignedParkingBoy.fetch(parkingTicket));
+        assertSame(car, serviceManager.fetch(parkingTicket));
     }
 
     @Test
@@ -84,25 +83,18 @@ class ServiceManagerTest {
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
         serviceManager.addParkingBoy(parkingBoy);
-        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
-        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+        serviceManager.addParkingBoy(smartParkingBoy);
+        serviceManager.addParkingBoy(superSmartParkingBoy);
 
         //WHEN
-        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(parkingBoy);
-        ParkingTicket parkingTicket = assignedParkingBoy.park(car);
-
         //THEN
-        Exception exception = assertThrows(InvalidParkingTicketException.class,
-                () -> serviceManager
-                        .getParkingBoy(smartParkingBoy)
-                        .fetch(parkingTicket));
-        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+        assertThrows(InvalidParkingTicketException.class,
+                () -> serviceManager.fetch(new ParkingTicket()));
 
-        exception = assertThrows(InvalidParkingTicketException.class,
+        assertThrows(InvalidParkingTicketException.class,
                 () -> serviceManager
                         .getParkingBoy(superSmartParkingBoy)
                         .fetch(null));
-        assertEquals("Please provide your parking ticket.", exception.getMessage());
     }
 
     @Test
@@ -121,14 +113,12 @@ class ServiceManagerTest {
         ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
         serviceManager.addParkingBoy(parkingBoy);
-        serviceManager.addParkingBoy(smartParkingBoy, parkingLot3);
-        serviceManager.addParkingBoy(superSmartParkingBoy, parkingLot2);
+        serviceManager.addParkingBoy(smartParkingBoy);
+        serviceManager.addParkingBoy(superSmartParkingBoy);
 
         //WHEN
-        ParkingBoy assignedParkingBoy = serviceManager.getParkingBoy(parkingBoy);
-
         //THEN
-        Exception exception = assertThrows(OutOfPositionException.class, () -> assignedParkingBoy.park(car));
+        Exception exception = assertThrows(OutOfPositionException.class, () -> serviceManager.park(car, parkingBoy));
         assertEquals("Not enough position.", exception.getMessage());
     }
 
@@ -152,4 +142,5 @@ class ServiceManagerTest {
         assertEquals(0, parkingLot2.getCarsParked());
         assertSame(car, serviceManager.fetch(parkingTicket));
     }
+
 }
